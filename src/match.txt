@@ -1,0 +1,8 @@
+poke:rocket:1:0
+final:chobo:1:0
+freeman:leaf:1:0
+burrito:sushi:1:0
+chicken:salsa:1:0
+abba:dessert:1:0
+super:bobo:1:0
+breakfast:pizza:1:0
