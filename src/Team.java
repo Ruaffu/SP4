@@ -11,9 +11,11 @@ public class Team {
     int points;
     int id;
     boolean knockedOut = false;
+    int tournamentID;
     UI ui;
 
-    public Team(int id,String teamName,boolean knockedOut){
+    public Team(int tournamentID,int id,String teamName,boolean knockedOut){
+        this.tournamentID = tournamentID;
         this.id = id;
         this.teamName = teamName;
         this.knockedOut = knockedOut;
@@ -53,10 +55,13 @@ public class Team {
 
     public int getid() { return id; }
 
-
     public boolean isKnockedOut() {
         return knockedOut;
     }
+
+    public int getTournamentID() { return tournamentID; }
+
+    public void setTournamentID(int tournamentID) { this.tournamentID = tournamentID; }
 
     @Override
     public String toString() {

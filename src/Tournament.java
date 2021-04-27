@@ -2,20 +2,27 @@ public class Tournament {
     String tournamentName;
     Match match;
     Data data = new Data();
+    int id;
     int matchID;
     int teamID;
+    int teamMatchesID;
     int date;
     int time;
     int goal;
     UI ui;
 
 
-    public Tournament(String tournamentName){
+    public Tournament(int id ,String tournamentName){
+        this.id = id;
         this.tournamentName = tournamentName;
     }
 
-    public Tournament(int matchID, int teamID, int goal){
-
+    public Tournament(int teamMatchesID,int matchID, int teamID, int goal)
+    {
+        this.teamMatchesID = teamMatchesID;
+        this.matchID = matchID;
+        this.teamID = teamID;
+        this.goal = goal;
     }
 
 
@@ -50,9 +57,98 @@ public class Tournament {
 
     }
 
+    public String getTournamentName() {
+        return tournamentName;
+    }
+
+    public void setTournamentName(String tournamentName) {
+        this.tournamentName = tournamentName;
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public int getMatchID() {
+        return matchID;
+    }
+
+    public void setMatchID(int matchID) {
+        this.matchID = matchID;
+    }
+
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
+    }
+
+    public int getDate() {
+        return date;
+    }
+
+    public void setDate(int date) {
+        this.date = date;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getGoal() {
+        return goal;
+    }
+
+    public void setGoal(int goal) {
+        this.goal = goal;
+    }
+
+    public UI getUi() {
+        return ui;
+    }
+
+    public void setUi(UI ui) {
+        this.ui = ui;
+    }
+
+    public int getTeamMatchesID() {
+        return teamMatchesID;
+    }
+
+    public void setTeamMatchesID(int teamMatchesID) {
+        this.teamMatchesID = teamMatchesID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
     @Override
     public String toString() {
-        return tournamentName;
+        return tournamentName + teamID;
     }
 
 }

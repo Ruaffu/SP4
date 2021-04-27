@@ -3,7 +3,7 @@ import java.util.Collections;
 
 public class Match {
     int id;
-    int tourId;
+    int tournamentID;
     String matchType;
     int date;
     int time;
@@ -24,7 +24,7 @@ public class Match {
 
     public Match(int tourId, int id, String matchType, int date, int time, boolean active)
     {
-        this.tourId = tourId;
+        this.tournamentID = tourId;
         this.id = id;
         this.active = active;
         this.matchType = matchType;
@@ -62,6 +62,26 @@ public class Match {
         return team2Goals;
     }
 
+    public int getTournamentID() { return tournamentID; }
+
+    public void setTournamentID(int tourId) { this.tournamentID = tourId; }
+
+    public boolean isActive() { return active; }
+
+    public void setActive(boolean active) { this.active = active; }
+
+    public String getMatchType() { return matchType; }
+
+    public void setMatchType(String matchType) { this.matchType = matchType; }
+
+    public void setTeam1(Team team1) {
+        this.team1 = team1;
+    }
+
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
+    }
+
     @Override
     public String toString() {
         return
@@ -72,11 +92,4 @@ public class Match {
                         " Goals: " + team2Goals;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 }

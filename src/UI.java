@@ -7,12 +7,11 @@ public class UI
     Scanner interfaceScan = new Scanner(System.in);
     int userInput;
     Data data = new Data();
-    Tournament tour = new Tournament("pik");
+    Tournament tour = new Tournament(1,"pik");
 
     public void mainInterface()
     {
-
-        System.out.println("MAIN INTERFACE");
+        System.out.println("\nMAIN INTERFACE - TOURNAMENT " + Main.tournaments.get(Main.tourChoose).getTournamentName().toUpperCase());
         System.out.println("1.Team menu");
         System.out.println("2.Match menu");
         System.out.println("3.Tournament menu");
@@ -41,10 +40,10 @@ public class UI
 
     public void teamMenu()
     {
-        System.out.println("TEAM MENU");
+        System.out.println("\nTEAM MENU - TOURNAMENT " + Main.tournaments.get(Main.tourChoose).getTournamentName().toUpperCase());
         System.out.println("1.Register team");
         System.out.println("2.Delete team");
-        System.out.println("3.View all teams registered"); //todo lav imorgen
+        System.out.println("3.View all teams registered"); //VIKER
         System.out.println("4.Back to menu");
         userInput = interfaceScan.nextInt();
 
@@ -74,9 +73,9 @@ public class UI
 
     public void matchMenu()
     {
-        System.out.println("MATCH MENU");
+        System.out.println("\nMATCH MENU - TOURNAMENT " + Main.tournaments.get(Main.tourChoose).getTournamentName().toUpperCase());
         System.out.println("1.Create Matches");
-        System.out.println("2.Register match results"); //todo lav imorgen
+        System.out.println("2.Register match results"); //todo VIRKER IKKE
         System.out.println("3.Back to menu");
         System.out.println("4.read test");
         userInput = interfaceScan.nextInt();
@@ -99,7 +98,7 @@ public class UI
                 mainInterface();
                 break;
             case 2:
-                if(Main.currentTeams.size() == 0) {
+                if(Main.currentTeams.size() == 16) {
                     System.out.println("Jeg har lavet hold i matches");
                     data.registerMatches(Main.matches);
                 }
@@ -131,9 +130,9 @@ public class UI
 
     public void tournamentMenu()
     {
-        System.out.println("TOURNAMENT MENU");
+        System.out.println("\nTOURNAMENT MENU - TOURNAMENT " + Main.tournaments.get(Main.tourChoose).getTournamentName().toUpperCase());
         System.out.println("1.Tournament placements"); //todo lav imorgen
-        System.out.println("2.Tournament match schedule"); //todo lav imorgen
+        System.out.println("2.Tournament match schedule"); //todo VIKER IKKE
         System.out.println("3.Tournament simulation"); //todo lav måske imorgen
         System.out.println("4.Back to menu");
         userInput = interfaceScan.nextInt();

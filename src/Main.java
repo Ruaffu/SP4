@@ -19,6 +19,7 @@ public class Main {
     public static ArrayList<Tournament> tournaments = new ArrayList<>();
     public static ArrayList<Tournament> tournamentSchedule = new ArrayList<>();
     public static IO io;
+    public static int tourChoose;
     //ENUM
     enum Datasource
     {
@@ -36,7 +37,6 @@ public class Main {
         continueTournament();
         ui = new UI();
         ui.mainInterface();
-        Main.matches.get(0).getTeam1Goals();
 //        saveMatchData();
 
     }
@@ -73,6 +73,23 @@ public class Main {
         teams = io.loadTeams(teamPath);
         tournaments = io.loadTournaments();
         tournamentSchedule = io.loadTeamMatches();
+        System.out.println("\nTOURNAMENTSCHEDULE");
+        System.out.println(tournamentSchedule.get(1).getTeamID());
+
+
+        for(int u = 0; u < tournamentSchedule.size(); u++)
+        {
+          int y = tournamentSchedule.get(u).getTeamID();
+
+            if(teams.get(u).getid() == y)
+            {
+                System.out.println("HOLDNAVN");
+                System.out.println(teams.get(u).getTeamName());
+                //matches.get(0).setTeam1(teams.get(u));
+            }
+        }
+
+
         Scanner tourInput = new Scanner(System.in);
         System.out.println("\nSaved Tournaments: \n");
         int i = 1;
@@ -86,11 +103,48 @@ public class Main {
         int input = tourInput.nextInt();
         io = getIo();
 
-        //todo: double for loop der finder tournamentSchedule for det tournament ID der blev valgt (VIGTIGST)
+        if (input <= tournaments.size())
+        {
+            tourChoose = input - 1;
+            for(int e = 0; e < tournamentSchedule.size(); e++)
+            {
+                //Removes schedules from arraylist that dosent have the id of the choosed tournament name
+                if(tournamentSchedule.get(e).getTeamMatchesID() != tournaments.get(tourChoose).getId())
+                {
+                    tournamentSchedule.remove(e);
+                    e--;
+                }
+            }
 
-        //todo: double for loop der finder teams for det tournament ID der blev valgt
 
-        //todo: double for loop der finder matches for det tournament ID der blev valgt
+        //Removes teams from arraylist that dosent have the id of the choosed tournament name
+        for(int n = 0; n < teams.size(); n++)
+        {
+            if(teams.get(n).getTournamentID() != tournaments.get(tourChoose).getId())
+            {
+                teams.remove(n);
+                n--;
+            }
+        }
+
+        //Removes matches from arraylist that dosent have the id of the choosed tournament name
+        for(int h = 0; h < matches.size(); h++)
+        {
+            if (matches.get(h).getTournamentID() != tournaments.get(tourChoose).getId())
+            {
+                matches.remove(h);
+                h--;
+            }
+        }
+        }
+        else if(input == i+1)
+        {
+            //Create new tournament
+        }
+        else
+        {
+            System.out.println("That is not a valid option");
+        }
 
         //add all teams that is not knockedOut of the tournament
         for(int p = 0; p < teams.size(); p++) {

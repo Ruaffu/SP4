@@ -15,11 +15,101 @@ public class DBConnector implements IO{
     @Override
     public void saveTeams()
     {
+        //        Connection conn = null;
+//        // Statement stmt = null;
+//        // for insert a new candidate
+//        ResultSet rs = null;
+//
+//        //Insert/upsert
+//        String sql = "INSERT INTO Player( tournamentID, matchID, teamID, goals, points) "
+//                + "VALUES(?,?,?,?,?,?)  ON DUPLICATE KEY UPDATE goals=?, points=?";
+//
+//        try{
+//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+//            PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+//
+//
+//            //STEP 2: Execute a query
+//            System.out.println("Creating statement...");
+//            //stmt = conn.createStatement();
+//
+//            for(int i = 0; i <  Main.matches.size();i++){
+//
+//                pstmt.setInt(1,Main.getTournamentByID(i).getId());
+//                pstmt.setString(2,Main.getMatchByID(i).getMatch());
+//                pstmt.setInt(3,Main.getTeamByID(i).getTeamName());
+//                pstmt.setInt(4,Main.getGoals(i).getTeamGoals());
+//                pstmt.setInt(5,Main.getPoints(i).getPoints());
+//
+//                // Disse paramtre bruges ved UPDATES
+//                pstmt.setInt(6,Main.getGoals(i).getTeamGoals());
+//                pstmt.setInt(7,Main.getPoints(i).getPoints());
+//
+//
+//                pstmt.addBatch();
+//
+//            }
+//            pstmt.executeBatch();
+//
+//        }catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        } finally {
+//            try {
+//                if(rs != null)  rs.close();
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
 
     }
 
     @Override
     public void saveMatches() {
+//        Connection conn = null;
+//        // Statement stmt = null;
+//        // for insert a new candidate
+//        ResultSet rs = null;
+//
+//        //Insert/upsert
+//        String sql = "INSERT INTO Player( tournamentID, matchID, teamID, goals, points) "
+//                + "VALUES(?,?,?,?,?,?)  ON DUPLICATE KEY UPDATE goals=?, points=?";
+//
+//        try{
+//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+//            PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+//
+//
+//            //STEP 2: Execute a query
+//            System.out.println("Creating statement...");
+//            //stmt = conn.createStatement();
+//
+//            for(int i = 0; i <  Main.matches.size();i++){
+//
+//                pstmt.setInt(1,Main.getTournamentByID(i).getId());
+//                pstmt.setString(2,Main.getMatchByID(i).getMatch());
+//                pstmt.setInt(3,Main.getTeamByID(i).getTeamName());
+//                pstmt.setInt(4,Main.getGoals(i).getTeamGoals());
+//                pstmt.setInt(5,Main.getPoints(i).getPoints());
+//
+//                // Disse paramtre bruges ved UPDATES
+//                pstmt.setInt(6,Main.getGoals(i).getTeamGoals());
+//                pstmt.setInt(7,Main.getPoints(i).getPoints());
+//
+//
+//                pstmt.addBatch();
+//
+//            }
+//            pstmt.executeBatch();
+//
+//        }catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        } finally {
+//            try {
+//                if(rs != null)  rs.close();
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
 
     }
 
@@ -54,6 +144,7 @@ public class DBConnector implements IO{
             while(rs.next()){
                 //Retrieve by column name
                 int ID = rs.getInt("id");
+                int tournamentID = rs.getInt("tournamentID");
                 String name = rs.getString("name");
                 boolean knockOut = rs.getBoolean("knockOut");
 
@@ -61,7 +152,7 @@ public class DBConnector implements IO{
                 System.out.print("ID: " + ID);
                 System.out.print(" | TeamName: " + name);
                 System.out.println(" | TeamknockOut: " + knockOut);
-                Team team = new Team(ID,name,knockOut);
+                Team team = new Team(tournamentID,ID,name,knockOut);
                 teamList.add(team);
 
             }
@@ -112,13 +203,13 @@ public class DBConnector implements IO{
             System.out.println("Creating statement...");
             stmt = conn.createStatement();
 
-            String sql = "SELECT * FROM Matches";
+            String sql =" SELECT * FROM Matches";
             ResultSet rs = stmt.executeQuery(sql);
 
             //STEP 5: Extract data from result set
             while(rs.next()){
                 //Retrieve by column name
-                int tourId = rs.getInt("tourId");
+                int tournamentID = rs.getInt("tournamentID");
                 int id = rs.getInt("id");
                 String matchType = rs.getString("matchType");
                 int date = rs.getInt("date");
@@ -126,13 +217,13 @@ public class DBConnector implements IO{
                 boolean active = rs.getBoolean("active");
 
                 //Display values
-                System.out.print("Tournament-ID: " + tourId);
+                System.out.print("Tournament-ID: " + tournamentID);
                 System.out.print("Match-ID: " + id);
                 System.out.print(" | matchType: " + matchType);
                 System.out.print(" | date: " + date);
                 System.out.print(" | matchTime: " + time);
                 System.out.println(" | active: " + active);
-                Match match = new Match(tourId,id,matchType,date,time,active);
+                Match match = new Match(tournamentID,id,matchType,date,time,active);
                 matchList.add(match);
 
 
@@ -196,17 +287,19 @@ public class DBConnector implements IO{
             //STEP 5: Extract data from result set
             while(rs.next()){
                 //Retrieve by column name
+                int tournamentID = rs.getInt("tournamentID");
                 int matchID = rs.getInt("matchID");
                 int teamID = rs.getInt("teamID");
                 int goals = rs.getInt("goals");
                 int points = rs.getInt("points");
 
                 //Display values
+                System.out.println("TournamentID: " + tournamentID);
                 System.out.print("MatchID: " + matchID);
                 System.out.print(" | TeamID: " + teamID);
                 System.out.print(" | Goals: " + goals);
                 System.out.print(" | Points: " + points);
-                Tournament tournament = new Tournament(matchID, teamID, goals);
+                Tournament tournament = new Tournament(tournamentID,matchID, teamID, goals);
                 tournamentList.add(tournament);
             }
             //STEP 6: Clean-up environment
@@ -262,11 +355,13 @@ public class DBConnector implements IO{
             //STEP 5: Extract data from result set
             while(rs.next()){
                 //Retrieve by column name
+                int id = rs.getInt("id");
                 String tournametName = rs.getString("name");
 
                 //Display values
+                System.out.print("tournament ID: " + id);
                 System.out.print("tournamentName: " + tournametName);
-                Tournament tournament = new Tournament(tournametName);
+                Tournament tournament = new Tournament(id,tournametName);
                 tournamentList.add(tournament);
             }
             //STEP 6: Clean-up environment
