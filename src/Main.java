@@ -17,7 +17,9 @@ public class Main {
     public static ArrayList<Match> semifinals = new ArrayList<>();
     public static ArrayList<Tournament> tournaments = new ArrayList<>();
     public static ArrayList<Tournament> tournamentSchedule = new ArrayList<>();
+    public static ArrayList<Player> players = new ArrayList<>();
     public static IO io;
+    public static Controller con = new Controller();
     public static int tourChoose;
     //ENUM
     enum Datasource
@@ -72,98 +74,16 @@ public class Main {
         teams = io.loadTeams(teamPath);
         tournaments = io.loadTournaments();
         tournamentSchedule = io.loadTeamMatches();
-        System.out.println("\nTOURNAMENTSCHEDULE");
-        System.out.println(tournamentSchedule.get(1).getTeamID());
-
-                //set Teams in the right Matches
-                int x = 0;
-                int g = 0;
-                while(g < tournamentSchedule.size()/2)
-                {
-                    matches.get(g).setTeam1(teams.get(x));
-                    matches.get(g).setTeam2(teams.get(x + 1));
-                    x +=2;
-                    g++;
-                }
-
-        for(int u = 0; u < tournamentSchedule.size(); u++)
-        {
-          int y = tournamentSchedule.get(u).getTeamID();
-
-            if(teams.get(u).getid() == y)
-            {
-                System.out.println("HOLDNAVN");
-                System.out.println(teams.get(u).getTeamName());
-                //matches.get(0).setTeam1(teams.get(u));
-            }
-        }
-
-        Scanner tourInput = new Scanner(System.in);
-        System.out.println("\nSaved Tournaments: \n");
-        int i = 1;
-        for(Tournament t: tournaments)
-        {
-            System.out.println(" "+(i) + "." + t + "\n");
-            i++;
-        }
-        System.out.println("Create new Tournament:\n");
-        System.out.println(" "+(i) + ".Create new tournament\n");
-        int input = tourInput.nextInt();
-        io = getIo();
-
-        if (input <= tournaments.size())
-        {
-            tourChoose = input - 1;
-            for(int e = 0; e < tournamentSchedule.size(); e++)
-            {
-                //Removes schedules from arraylist that dosent have the id of the choosed tournament name
-                if(tournamentSchedule.get(e).getTeamMatchesID() != tournaments.get(tourChoose).getId())
-                {
-                    tournamentSchedule.remove(e);
-                    e--;
-                }
-            }
-
-
-        //Removes teams from arraylist that dosent have the id of the choosed tournament name
-        for(int n = 0; n < teams.size(); n++)
-        {
-            if(teams.get(n).getTournamentID() != tournaments.get(tourChoose).getId())
-            {
-                teams.remove(n);
-                n--;
-            }
-        }
-
-        //Removes matches from arraylist that dosent have the id of the choosed tournament name
-        for(int h = 0; h < matches.size(); h++)
-        {
-            if (matches.get(h).getTournamentID() != tournaments.get(tourChoose).getId())
-            {
-                matches.remove(h);
-                h--;
-            }
-        }
-        }
-        else if(input == i+1)
-        {
-            Controller data = new Controller();
-            data.createTournament();
-        }
-        else
-        {
-            System.out.println("That is not a valid option");
-        }
-
-        //add all teams that is not knockedOut of the tournament
-        for(int p = 0; p < teams.size(); p++) {
-            if (teams.get(p).isKnockedOut() == false)
-            {
-                Main.currentTeams.add(teams.get(p));
-            }
-        }
-
+        players = io.loadPlayers();
+        con.placePlayersInTeams();
+        con.setTeamsInMatches();
+        con.promptTournaments();
+        con.removeTeamsWithFalseID();
+        con.removeMatchsWithFalseID();
+        con.addCurrentTeams();
     }
+
+
     public static String getUserInput(String msg){
         System.out.print(msg);
         Scanner scan = new Scanner(System.in);
@@ -235,10 +155,5 @@ public class Main {
             }
         }
     }
-
-
-
-
-
 
 }

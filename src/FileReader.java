@@ -135,4 +135,8 @@ public class FileReader implements IO
 
         return teamList;
     }
+
+    public ArrayList<Player> loadPlayers(){
+        return null;
+    }
 }

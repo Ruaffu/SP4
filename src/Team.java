@@ -2,16 +2,17 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class Team {
     String teamName;
-    String playerName;
     int points;
     int id;
     boolean knockedOut = false;
     int tournamentID;
+    ArrayList<Player> players = new ArrayList<>();
     UI ui;
 
     public Team(int tournamentID,int id,String teamName,boolean knockedOut){
@@ -19,7 +20,6 @@ public class Team {
         this.id = id;
         this.teamName = teamName;
         this.knockedOut = knockedOut;
-        this.playerName = playerName;
 
     }
 
@@ -63,9 +63,26 @@ public class Team {
 
     public void setTournamentID(int tournamentID) { this.tournamentID = tournamentID; }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public String printPlayers() {
+        StringBuilder playerNames = new StringBuilder(players.get(0).getName());
+        for (int i = 1; i < players.size(); i++) {
+            playerNames.append(", ").append(players.get(i).getName());
+        }
+        return playerNames.toString();
+    }
+
     @Override
     public String toString() {
-        return  teamName;
+        return  "Team: " + teamName + "\n"
+                + "Players: " + printPlayers()+ "\n";
     }
 
 }

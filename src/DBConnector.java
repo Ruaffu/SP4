@@ -1,3 +1,4 @@
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -15,51 +16,51 @@ public class DBConnector implements IO{
     @Override
     public void saveTeams()
     {
-        //        Connection conn = null;
-//        // Statement stmt = null;
-//        // for insert a new candidate
-//        ResultSet rs = null;
-//
-//        //Insert/upsert
-//        String sql = "INSERT INTO Player( tournamentID, matchID, teamID, goals, points) "
-//                + "VALUES(?,?,?,?,?,?)  ON DUPLICATE KEY UPDATE goals=?, points=?";
-//
-//        try{
-//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-//            PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-//
-//
-//            //STEP 2: Execute a query
-//            System.out.println("Creating statement...");
-//            //stmt = conn.createStatement();
-//
-//            for(int i = 0; i <  Main.matches.size();i++){
-//
-//                pstmt.setInt(1,Main.getTournamentByID(i).getId());
-//                pstmt.setString(2,Main.getMatchByID(i).getMatch());
-//                pstmt.setInt(3,Main.getTeamByID(i).getTeamName());
-//                pstmt.setInt(4,Main.getGoals(i).getTeamGoals());
-//                pstmt.setInt(5,Main.getPoints(i).getPoints());
-//
-//                // Disse paramtre bruges ved UPDATES
-//                pstmt.setInt(6,Main.getGoals(i).getTeamGoals());
-//                pstmt.setInt(7,Main.getPoints(i).getPoints());
-//
-//
-//                pstmt.addBatch();
-//
-//            }
-//            pstmt.executeBatch();
-//
-//        }catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        } finally {
-//            try {
-//                if(rs != null)  rs.close();
-//            } catch (SQLException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
+                Connection conn = null;
+        // Statement stmt = null;
+        // for insert a new candidate
+        ResultSet rs = null;
+
+        //Insert/upsert
+        String sql = "INSERT INTO Teams(id,tournamentID,name,knockOut) "
+                + "VALUES(?,?,?,?)  ON DUPLICATE KEY UPDATE goals=?, points=?";
+
+        try{
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+
+
+            //STEP 2: Execute a query
+            System.out.println("Creating statement...");
+            //stmt = conn.createStatement();
+
+            for(int i = 0; i <  Main.teams.size();i++){
+
+                pstmt.setInt(1,Main.getTournamentByID(i).getId());
+                pstmt.setString(2,Main.getMatchByID(i).getMatch());
+                pstmt.setInt(3,Main.getTeamByID(i).getTeamName());
+                pstmt.setInt(4,Main.getGoals(i).getTeamGoals());
+                pstmt.setInt(5,Main.getPoints(i).getPoints());
+
+                // Disse paramtre bruges ved UPDATES
+                pstmt.setInt(6,Main.getGoals(i).getTeamGoals());
+                pstmt.setInt(7,Main.getPoints(i).getPoints());
+
+
+                pstmt.addBatch();
+
+            }
+            pstmt.executeBatch();
+
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if(rs != null)  rs.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
     }
 
@@ -163,7 +164,64 @@ public class DBConnector implements IO{
         System.out.println("statement Done");
 
     }
+    public ArrayList<Player> loadPlayers()
+    {
+        ArrayList<Player> playerList = new ArrayList<>();
 
+        Connection conn = null;
+        Statement stmt = null;
+        try{
+            //STEP 2: Register JDBC driver
+            // Class.forName("com.mysql.jdbc.Driver");
+
+            //STEP 3: Open a connection
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            //STEP 4: Execute a query
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM Players";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            //STEP 5: Extract data from result set
+            while(rs.next()){
+                //Retrieve by column name
+                int teamID = rs.getInt("teamID");
+                String name = rs.getString("name");
+                Player player = new Player(name);
+                player.setId(teamID);
+                playerList.add(player);
+
+            }
+            //STEP 6: Clean-up environment
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return playerList;
+    }
     @Override
     public ArrayList<Team> loadTeams(String file)
     {

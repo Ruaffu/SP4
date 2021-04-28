@@ -13,6 +13,7 @@ public interface IO
     public ArrayList<Tournament> loadTeamMatches();
     public ArrayList<Team> loadTeams(String file);
     public ArrayList<Match> loadMatches(String file);
+    public ArrayList<Player> loadPlayers();
     public void loadResults();
 
 }

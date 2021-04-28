@@ -80,7 +80,7 @@ IO io;
 
     public void allTeams()
     {
-        System.out.println("Enrolled teams ");
+        System.out.println("ENROLLED TEAMS: \n");
         for (Team c : Main.teams)
         {
             System.out.println(c);
@@ -204,5 +204,104 @@ IO io;
         Tournament tournament = new Tournament(tournamentName);
         Main.tournaments.add(tournament);
         System.out.println("Tournament " + tournamentName + " has now been created");
+    }
+
+    public void placePlayersInTeams()
+    {
+        //double for loop to place Players in the right teams
+        for(int t = 0; t < Main.teams.size(); t++)
+        {
+            for(int y = 0; y < Main.players.size(); y++)
+            {
+                if(Main.players.get(y).getTeamID() == Main.teams.get(t).getid())
+                {
+                    Main.teams.get(t).getPlayers().add(Main.players.get(y));
+                }
+            }
+        }
+    }
+
+    public void setTeamsInMatches()
+    {
+        int x = 0;
+        int g = 0;
+        while(g < Main.tournamentSchedule.size()/2)
+        {
+            Main.matches.get(g).setTeam1(Main.teams.get(x));
+            Main.matches.get(g).setTeam2(Main.teams.get(x + 1));
+            x +=2;
+            g++;
+        }
+    }
+
+
+    public void promptTournaments() {
+        Scanner tourInput = new Scanner(System.in);
+        System.out.println("\nSaved Tournaments: \n");
+        int i = 1;
+        for (Tournament t : Main.tournaments) {
+            System.out.println(" " + (i) + "." + t + "\n");
+            i++;
+        }
+        System.out.println("Create new Tournament:\n");
+        System.out.println(" " + (i) + ".Create new tournament\n");
+        int input = tourInput.nextInt();
+
+        if (input <= Main.tournaments.size()) {
+            Main.tourChoose = input - 1;
+            for (int e = 0; e < Main.tournamentSchedule.size(); e++) {
+                //Removes schedules from arraylist that dosent have the id of the choosed tournament name
+                if (Main.tournamentSchedule.get(e).getTeamMatchesID() != Main.tournaments.get(Main.tourChoose).getId()) {
+                    Main.tournamentSchedule.remove(e);
+                    e--;
+                }
+            }
+        }
+
+        else if(input == i)
+        {
+            Main.tourChoose = input -1;
+            Controller data = new Controller();
+            data.createTournament();
+        }
+        else
+        {
+            System.out.println("That is not a valid option");
+        }
+    }
+
+    public void removeTeamsWithFalseID()
+    {
+        //Removes teams from arraylist that dosent have the id of the choosed tournament name
+        for(int n = 0; n < Main.teams.size(); n++)
+        {
+            if(Main.teams.get(n).getTournamentID() != Main.tournaments.get(Main.tourChoose).getId())
+            {
+                Main.teams.remove(n);
+                n--;
+            }
+        }
+    }
+
+    public void removeMatchsWithFalseID() {
+        //Removes matches from arraylist that dosent have the id of the choosed tournament name
+        for(int h = 0; h < Main.matches.size(); h++)
+        {
+            if (Main.matches.get(h).getTournamentID() != Main.tournaments.get(Main.tourChoose).getId())
+            {
+                Main.matches.remove(h);
+                h--;
+            }
+        }
+    }
+
+    public void addCurrentTeams() {
+        //add all teams that is not knockedOut of the tournament
+        for(int p = 0; p < Main.teams.size(); p++) {
+            if (Main.teams.get(p).isKnockedOut() == false)
+            {
+                Main.currentTeams.add(Main.teams.get(p));
+            }
+        }
     }
 }
