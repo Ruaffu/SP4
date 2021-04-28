@@ -29,7 +29,11 @@ IO io;
     public void registerTeamAndPlayers (ArrayList<Player> registerPlayers){
         //Add team
         Scanner scan = new Scanner(System.in);
-        System.out.println("Write your team name");
+        System.out.println("\n" +
+                " +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+\n" +
+                " |W|e|l|c|o|m|e| |t|o| |t|e|a|m| |r|e|g|i|s|t|r|a|t|i|o|n|\n" +
+                " +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+\n");
+        System.out.println("\n Please write your teams name");
         String teamName = scan.nextLine();
 
         Team team = new Team(Main.tourChoose+1,teamName,false);
@@ -37,13 +41,17 @@ IO io;
         Main.teams.add(team);
 
         //Add players
-        System.out.println("Register players");
+        System.out.println("+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+\n" +
+                " |P|l|a|y|e|r| |r|e|g|i|s|t|r|a|t|i|o|n|\n" +
+                " +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+");
+        System.out.println("\n Register a max of 6 players per team (press q to quit)");
         final int maxPlayers = 6;
         ArrayList<Player> players = new ArrayList<>();
         Scanner scan2 = new Scanner(System.in);
         int count = 0;
+        int pcount = 1;
         while(players.size() < maxPlayers){
-            System.out.println("Write name of player");
+            System.out.println("Write name of player " + pcount+ ": ");
             String playerName = scan2.nextLine();
 
             if(playerName.toLowerCase().equals("q")){
@@ -54,6 +62,7 @@ IO io;
             player.setTeamID(team.getid());
             players.add(player);
             count++;
+            pcount++;
         }
         System.out.println("Welcome to the tournament " + teamName + " Your team has now been registered");
     }
