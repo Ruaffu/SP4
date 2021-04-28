@@ -231,10 +231,13 @@ IO io;
 
     public void createTournament()
     {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Type tournament name");
-        System.out.println("\nUserInput: ");
-        String tournamentName = scan.nextLine();
+        System.out.println(
+                "_ _ _ ____ _    ____ ____ _  _ ____    ___ ____    ___ ____ _  _ ____ _  _ ____ _  _ ____ _  _ ___    ____ ____ ____ ____ ___ ____ ____ \n" +
+                "| | | |___ |    |    |  | |\\/| |___     |  |  |     |  |  | |  | |__/ |\\ | |__| |\\/| |___ |\\ |  |     |    |__/ |___ |__|  |  |  | |__/ \n" +
+                "|_|_| |___ |___ |___ |__| |  | |___     |  |__|     |  |__| |__| |  \\ | \\| |  | |  | |___ | \\|  |     |___ |  \\ |___ |  |  |  |__| |  \\ \n" +
+                "                                                                                                                                        ");
+        System.out.println("Type your tournament name");
+        String tournamentName = Main.getUserInput("Userinput: ");;
         Tournament tournament = new Tournament(tournamentName);
         Main.tournaments.add(tournament);
         System.out.println("Tournament " + tournamentName + " has now been created");
@@ -270,7 +273,11 @@ IO io;
 
 
     public void promptTournaments() {
-        Scanner tourInput = new Scanner(System.in);
+        System.out.println(
+                "___ ____ _  _ ____ _  _ ____ _  _ ____ _  _ ___    _  _ ____ _  _ ____ ____ ____ ____ \n" +
+                " |  |  | |  | |__/ |\\ | |__| |\\/| |___ |\\ |  |     |\\/| |__| |\\ | |__| | __ |___ |__/ \n" +
+                " |  |__| |__| |  \\ | \\| |  | |  | |___ | \\|  |     |  | |  | | \\| |  | |__] |___ |  \\ \n" +
+                "                                                                                      ");
         System.out.println("\nSaved Tournaments: \n");
         int i = 1;
         for (Tournament t : Main.tournaments) {
@@ -279,7 +286,7 @@ IO io;
         }
         System.out.println("Create new Tournament:\n");
         System.out.println(" " + (i) + ".Create new tournament\n");
-        int input = tourInput.nextInt();
+        int input = Main.getUserInput2("UserInput: ");
 
         if (input <= Main.tournaments.size()) {
             Main.tourChoose = input - 1;

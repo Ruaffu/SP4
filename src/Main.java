@@ -91,6 +91,12 @@ public class Main {
         return scan.nextLine();
     }
 
+    public static int getUserInput2(String msg){
+        System.out.print(msg);
+        Scanner scan = new Scanner(System.in);
+        return scan.nextInt();
+    }
+
 
     private static IO getIo()
     {
