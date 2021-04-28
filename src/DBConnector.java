@@ -66,8 +66,8 @@ public class DBConnector implements IO{
 //        ResultSet rs = null;
 //
 //        //Insert/upsert
-//        String sql = "INSERT INTO Player( tournamentID, matchID, teamID, goals, points) "
-//                + "VALUES(?,?,?,?,?,?)  ON DUPLICATE KEY UPDATE goals=?, points=?";
+//        String sql = "INSERT INTO Matches( id, tournamentID, matchType, date, time, active) "
+//                + "VALUES(?,?,?,?,?,?) ";
 //
 //        try{
 //            conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -137,6 +137,7 @@ public class DBConnector implements IO{
             for (int i = 0; i < Main.players.size(); i++)
             {
                 pstmt.setInt(1, Main.players.get(i).getTeamID());
+                pstmt.setString(2, Main.players.get(i).getName());
 
                 pstmt.addBatch();
             }

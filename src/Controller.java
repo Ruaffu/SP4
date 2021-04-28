@@ -33,7 +33,7 @@ IO io;
         String teamName = scan.nextLine();
 
         Team team = new Team(Main.tourChoose+1,teamName,false);
-        Main.players.get(2).setTeamID(team.getid());
+//        Main.players.get(2).setTeamID(team.getid());
         Main.teams.add(team);
 
         //Add players
@@ -55,7 +55,7 @@ IO io;
             players.add(player);
             count++;
         }
-        System.out.println("Welcome to the tournament " + teamName + " Your team has now been registered");
+        System.out.println("Welcome to the tournament " + teamName+ players + " Your team has now been registered");
     }
 
     public void deleteTeam()
