@@ -119,10 +119,10 @@ public class DBConnector implements IO{
     {
         ResultSet rs = null;
         Connection conn = null;
-        //Statement stmt = null;
+        Statement stmt = null;
 
-        String sql = "INSERT INTO Players(teamID,name)"
-                + "VALUES(?,?)";
+        String sql = "INSERT INTO Players(teamID,name) "
+                + " VALUES(?,?)";
 
         try
         {
@@ -137,6 +137,7 @@ public class DBConnector implements IO{
             for (int i = 0; i < Main.players.size(); i++)
             {
                 pstmt.setInt(1, Main.players.get(i).getTeamID());
+                pstmt.setString(2, Main.players.get(i).getName());
 
                 pstmt.addBatch();
             }
@@ -202,6 +203,7 @@ public class DBConnector implements IO{
         System.out.println("Tournament statement Done");
 
     }
+
     public ArrayList<Player> loadPlayers()
     {
         ArrayList<Player> playerList = new ArrayList<>();

@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,13 +30,12 @@ IO io;
 
     public void registerTeamAndPlayers (ArrayList<Player> registerPlayers){
         //Add team
-        Scanner scan = new Scanner(System.in);
         System.out.println("\n" +
                 "_ _ _ ____ _    ____ ____ _  _ ____    ___ ____    ___ ____ ____ _  _    ____ ____ ____ _ ____ ___ ____ ____ ___ _ ____ _  _ \n" +
                 "| | | |___ |    |    |  | |\\/| |___     |  |  |     |  |___ |__| |\\/|    |__/ |___ | __ | [__   |  |__/ |__|  |  | |  | |\\ | \n" +
                 "|_|_| |___ |___ |___ |__| |  | |___     |  |__|     |  |___ |  | |  |    |  \\ |___ |__] | ___]  |  |  \\ |  |  |  | |__| | \\| \n");
         System.out.println("Please write your teams name");
-        String teamName = scan.nextLine();
+        String teamName = Main.getUserInput("Userinput: ");
 
         Team team = new Team(Main.tourChoose+1,teamName,false);
         Main.players.get(2).setTeamID(team.getid());
@@ -49,12 +50,11 @@ IO io;
         System.out.println("Register a max of 6 players per team (press q to quit)");
         final int maxPlayers = 6;
         ArrayList<Player> players = new ArrayList<>();
-        Scanner scan2 = new Scanner(System.in);
         int count = 0;
         int pcount = 1;
         while(players.size() < maxPlayers){
             System.out.println("Write name of player " + pcount+ ": ");
-            String playerName = scan2.nextLine();
+            String playerName = Main.getUserInput("Userinput: ");
 
             if(playerName.toLowerCase().equals("q")){
                 break;
