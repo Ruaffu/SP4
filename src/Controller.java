@@ -35,7 +35,7 @@ IO io;
                 "| | | |___ |    |    |  | |\\/| |___     |  |  |     |  |___ |__| |\\/|    |__/ |___ | __ | [__   |  |__/ |__|  |  | |  | |\\ | \n" +
                 "|_|_| |___ |___ |___ |__| |  | |___     |  |__|     |  |___ |  | |  |    |  \\ |___ |__] | ___]  |  |  \\ |  |  |  | |__| | \\| \n");
         System.out.println("Please write your teams name");
-        String teamName = Main.getUserInput("Userinput: ");
+        String teamName = Main.getUserInput("UserInput: ");
 
         Team team = new Team(Main.tourChoose+1,teamName,false);
         Main.players.get(2).setTeamID(team.getid());
@@ -54,7 +54,7 @@ IO io;
         int pcount = 1;
         while(players.size() < maxPlayers){
             System.out.println("Write name of player " + pcount+ ": ");
-            String playerName = Main.getUserInput("Userinput: ");
+            String playerName = Main.getUserInput("UserInput: ");
 
             if(playerName.toLowerCase().equals("q")){
                 break;
@@ -237,7 +237,7 @@ IO io;
                 "|_|_| |___ |___ |___ |__| |  | |___     |  |__|     |  |__| |__| |  \\ | \\| |  | |  | |___ | \\|  |     |___ |  \\ |___ |  |  |  |__| |  \\ \n" +
                 "                                                                                                                                        ");
         System.out.println("Type your tournament name");
-        String tournamentName = Main.getUserInput("Userinput: ");;
+        String tournamentName = Main.getUserInput("UserInput: ");;
         Tournament tournament = new Tournament(tournamentName);
         Main.tournaments.add(tournament);
         System.out.println("Tournament " + tournamentName + " has now been created");

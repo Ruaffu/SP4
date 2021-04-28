@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class UI
 {
-    Scanner interfaceScan = new Scanner(System.in);
     int userInput;
     Controller data = new Controller();
     Tournament tour = new Tournament(1,"pik");
@@ -14,7 +13,7 @@ public class UI
         System.out.println("2.Match menu");
         System.out.println("3.Tournament menu");
         System.out.println("4.Exit");
-        userInput = interfaceScan.nextInt();
+        userInput = Main.getUserInput2("UserInput: ");
 
         switch (userInput)
         {
@@ -46,7 +45,7 @@ public class UI
         System.out.println("2.Delete team");
         System.out.println("3.View all teams registered");
         System.out.println("4.Back to menu");
-        userInput = interfaceScan.nextInt();
+        userInput = Main.getUserInput2("UserInput: ");
 
         switch (userInput)
         {
@@ -80,7 +79,7 @@ public class UI
         System.out.println("4.Show winner of specific match");
         System.out.println("5.Back to menu");
         System.out.println("6.read test");
-        userInput = interfaceScan.nextInt();
+        userInput = Main.getUserInput2("UserInput: ");
 
         switch (userInput)
         {
@@ -118,7 +117,7 @@ public class UI
         System.out.println("3.Tournament simulation");
         System.out.println("4.Tournament winners");
         System.out.println("5.Back to menu");
-        userInput = interfaceScan.nextInt();
+        userInput = Main.getUserInput2("UserInput: ");
 
         switch (userInput)
         {
