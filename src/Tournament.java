@@ -1,7 +1,7 @@
 public class Tournament {
     String tournamentName;
     Match match;
-    Data data = new Data();
+    Controller data = new Controller();
     int id;
     int matchID;
     int teamID;
@@ -73,11 +73,11 @@ public class Tournament {
         this.match = match;
     }
 
-    public Data getData() {
+    public Controller getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(Controller data) {
         this.data = data;
     }
 

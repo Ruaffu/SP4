@@ -1,12 +1,10 @@
-import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.*;
+
 public class UI
 {
     Scanner interfaceScan = new Scanner(System.in);
     int userInput;
-    Data data = new Data();
+    Controller data = new Controller();
     Tournament tour = new Tournament(1,"pik");
 
     public void mainInterface()
