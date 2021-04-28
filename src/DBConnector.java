@@ -6,11 +6,11 @@ public class DBConnector implements IO{
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/TournamentManager";
+    static final String DB_URL = "jdbc:mysql://localhost/TournamentManager2";
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "darkdogx85";
+    static final String PASS = "peugeot405";
 
 
     @Override
@@ -66,8 +66,8 @@ public class DBConnector implements IO{
 //        ResultSet rs = null;
 //
 //        //Insert/upsert
-//        String sql = "INSERT INTO Matches( id, tournamentID, matchType, date, time, active) "
-//                + "VALUES(?,?,?,?,?,?) ";
+//        String sql = "INSERT INTO Player( tournamentID, matchID, teamID, goals, points) "
+//                + "VALUES(?,?,?,?,?,?)  ON DUPLICATE KEY UPDATE goals=?, points=?";
 //
 //        try{
 //            conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -137,7 +137,6 @@ public class DBConnector implements IO{
             for (int i = 0; i < Main.players.size(); i++)
             {
                 pstmt.setInt(1, Main.players.get(i).getTeamID());
-                pstmt.setString(2, Main.players.get(i).getName());
 
                 pstmt.addBatch();
             }
@@ -164,10 +163,8 @@ public class DBConnector implements IO{
         Connection conn = null;
         Statement stmt = null;
 
-        String sql = "INSERT INTO Tournaments(name) "
-                + " VALUES(?)";
-
-        String sql2 = "SELECT * FROM Teams";
+        String sql = "INSERT INTO Tournaments(id,name) "
+                + " VALUES(?,?)";
 
 
         try
@@ -183,9 +180,8 @@ public class DBConnector implements IO{
 
             for (int i = 0; i < Main.tournaments.size(); i++)
             {
-
-
-                    pstmt.setString(1, Main.tournaments.get(i).getTournamentName());
+                    pstmt.setInt(1,Main.tournaments.get(i).getId());
+                    pstmt.setString(2, Main.tournaments.get(i).getTournamentName());
 
                     pstmt.addBatch();
 

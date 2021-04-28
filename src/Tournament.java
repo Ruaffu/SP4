@@ -1,14 +1,14 @@
 public class Tournament {
-    String tournamentName;
-    Match match;
     Controller data = new Controller();
-    int id;
-    int matchID;
-    int teamID;
-    int teamMatchesID;
-    int date;
-    int time;
-    int goal;
+    private int id;
+    private int matchID;
+    private int teamID;
+    private int teamMatchesID;
+    private int date;
+    private int time;
+    private int goal;
+    private String tournamentName;
+    private Match match;
     UI ui;
 
     public Tournament(String tournamentName)
@@ -28,7 +28,6 @@ public class Tournament {
         this.teamID = teamID;
         this.goal = goal;
     }
-
 
     public void tournamentSchedule()
     {
@@ -62,6 +61,7 @@ public class Tournament {
 
     }
 
+    //GETTERS AND SETTERS
     public String getTournamentName() {
         return tournamentName;
     }
@@ -151,6 +151,7 @@ public class Tournament {
     }
 
 
+    //TO STRING
     @Override
     public String toString() {
         return tournamentName ;

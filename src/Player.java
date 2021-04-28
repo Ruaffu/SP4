@@ -1,12 +1,16 @@
-public class Player {
+public class Player
+{
     String name;
     int teamID;
 
-    public Player(String name){
+    public Player(String name)
+    {
         this.name = name;
 
     }
 
+
+    //GETTERS AND SETTERS
     public void setId(int id) {
         this.teamID = id;
     }
@@ -14,8 +18,6 @@ public class Player {
     public int getTeamID() {
         return teamID;
     }
-
-
 
     public String getName() {
         return name;
@@ -29,9 +31,10 @@ public class Player {
         this.teamID = teamID;
     }
 
+
+    //TO STRING
     @Override
     public String toString() {
-        return name + " "
-                + teamID;
+        return name;
     }
 }

@@ -33,7 +33,7 @@ IO io;
         String teamName = scan.nextLine();
 
         Team team = new Team(Main.tourChoose+1,teamName,false);
-//        Main.players.get(2).setTeamID(team.getid());
+        Main.players.get(2).setTeamID(team.getid());
         Main.teams.add(team);
 
         //Add players
@@ -55,7 +55,7 @@ IO io;
             players.add(player);
             count++;
         }
-        System.out.println("Welcome to the tournament " + teamName+ players + " Your team has now been registered");
+        System.out.println("Welcome to the tournament " + teamName + " Your team has now been registered");
     }
 
     public void deleteTeam()
@@ -139,16 +139,16 @@ IO io;
                 i++;
         }
 
-         Main.currentmatches.removeAll(Main.currentmatches);
-
         if (Main.currentTeams.size() > 1) {
             System.out.println("Qualified teams: " + Main.currentTeams + "\n");
 
 
         } else if (Main.currentTeams.size() <= 1) {
             System.out.println("\n" + "The winner of the tournament is " + Main.currentTeams + "\n");
+            Main.currentTeams.get(0).setWinner(true);
         }
 
+        Main.currentmatches.removeAll(Main.currentmatches);
 
     }
     public void message(){
@@ -324,6 +324,56 @@ IO io;
             if (Main.teams.get(p).isKnockedOut() == false)
             {
                 Main.currentTeams.add(Main.teams.get(p));
+            }
+        }
+    }
+
+    public void showWinnerOfMatch()
+    {
+        int count = 0;
+        for(Match m : Main.matches)
+        {
+            System.out.println("Match."+(count+1)+ " - " + Main.matches.get(count).getMatchType());
+            System.out.println(" "+m);
+            System.out.println();
+            count++;
+        }
+
+        System.out.println("Type match number to view players that won the match");
+        Scanner scan = new Scanner(System.in);
+        int matchNumb = scan.nextInt();
+
+        matchNumb--;
+        if(Main.matches.get(matchNumb).getTeam1Goals() > Main.matches.get(matchNumb).getTeam2Goals())
+        {
+            Main.matches.get(matchNumb).getTeam1().getPlayers();
+        }
+        else if(Main.matches.get(matchNumb).getTeam2Goals() > Main.matches.get(matchNumb).getTeam1Goals())
+        {
+            Main.matches.get(matchNumb).getTeam2().getPlayers();
+        }
+        else
+        {
+            System.out.println("This match has no winner yet");
+        }
+        return;
+    }
+
+    public void Winners()
+    {
+        for(int i = 0; i < Main.teams.size(); i++)
+        {
+            if (Main.teams.get(i).isWinner() == true)
+            {
+                System.out.println("\nWinners:");
+                System.out.println("Team: " + Main.teams.get(i));
+
+            }
+            else
+            {
+                System.out.println("\nWinners");
+                System.out.println("Tournament is not over yet, no winner is found!");
+                break;
             }
         }
     }

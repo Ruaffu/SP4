@@ -2,17 +2,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Match {
-    int id;
-    int tournamentID;
-    String matchType;
-    int date;
-    int time;
-    boolean active;
-    Team team1;
-    Team team2;
-    int team1Goals;
-    int team2Goals;
+    private int id;
+    private int tournamentID;
+    private int date;
+    private int time;
+    private int team1Goals;
+    private int team2Goals;
+    private boolean active;
+    private String matchType;
+    private String startTime = "12.00";
+    private Team team1;
+    private Team team2;
+    private Team winner;
     UI ui;
+
 
     public Match(Team team1, Team team2, int team1Goals, int team2Goals, boolean active)
     {
@@ -34,7 +37,7 @@ public class Match {
     }
 
 
-
+    //GETTERS AND SETTERS
     public void setTeam1Goals(int team1Goals) {
         this.team1Goals = team1Goals;
     }
@@ -83,14 +86,14 @@ public class Match {
         this.team2 = team2;
     }
 
+    public String getStartTime() { return startTime; }
+
+    public void setStartTime(String startTime) { this.startTime = startTime; }
+
+    //TO STRING
     @Override
     public String toString() {
-        return
-                " team1: " + team1 +
-                        " Goals: " + team1Goals +
-                        " vs " +
-                        "team2: " + team2 +
-                        " Goals: " + team2Goals;
+        return team1.getTeamName() + " Goals: " + team1Goals + " vs " + team2.getTeamName() + " Goals: " + team2Goals;
     }
 
 }

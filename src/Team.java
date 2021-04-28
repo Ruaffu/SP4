@@ -6,26 +6,31 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class Team {
-    String teamName;
-    int points;
-    int id;
-    boolean knockedOut = false;
-    int tournamentID;
-    ArrayList<Player> players = new ArrayList<>();
+public class Team
+{
+    private int points;
+    private int id;
+    private int tournamentID;
+    private String teamName;
+    private boolean knockedOut = false;
+    private boolean winner = false;
+    private ArrayList<Player> players = new ArrayList<>();
     UI ui;
 
-    public Team(int tournamentID,String teamName,boolean knockedOut){
+    public Team(int tournamentID,String teamName,boolean knockedOut)
+    {
         this.tournamentID = tournamentID;
         this.teamName = teamName;
         this.knockedOut = knockedOut;
-
     }
 
-    public Team(String name){
+    public Team(String name)
+    {
         this.teamName = name;
     }
 
+
+    //GETTERS AND SETTERS
     public String getTeamName() {
         return teamName;
     }
@@ -70,6 +75,11 @@ public class Team {
         this.players = players;
     }
 
+    public boolean isWinner() { return winner; }
+
+    public void setWinner(boolean winner) { this.winner = winner; }
+
+    //STRING BUILDER
     public String printPlayers() {
         StringBuilder playerNames = new StringBuilder(players.get(0).getName());
         for (int i = 1; i < players.size(); i++) {
@@ -78,6 +88,7 @@ public class Team {
         return playerNames.toString();
     }
 
+    //TO STRING
     @Override
     public String toString() {
         return  "Team: " + teamName + "\n"

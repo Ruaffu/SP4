@@ -44,7 +44,7 @@ public class UI
         System.out.println("\nTEAM MENU - TOURNAMENT " + Main.tournaments.get(Main.tourChoose).getTournamentName().toUpperCase());
         System.out.println("1.Register team");
         System.out.println("2.Delete team");
-        System.out.println("3.View all teams registered"); //VIKER
+        System.out.println("3.View all teams registered");
         System.out.println("4.Back to menu");
         userInput = interfaceScan.nextInt();
 
@@ -56,7 +56,6 @@ public class UI
                 break;
             case 2:
                 data.deleteTeam();
-                System.out.println(Main.teams);
                 mainInterface();
                 break;
             case 3:
@@ -76,49 +75,31 @@ public class UI
     {
         System.out.println("\nMATCH MENU - TOURNAMENT " + Main.tournaments.get(Main.tourChoose).getTournamentName().toUpperCase());
         System.out.println("1.Create Matches");
-        System.out.println("2.Register match results"); //todo VIRKER IKKE
-        System.out.println("3.Back to menu");
-        System.out.println("4.read test");
+        System.out.println("2.Register match results");
+        System.out.println("3.Show next match");
+        System.out.println("4.Show winner of specific match");
+        System.out.println("5.Back to menu");
+        System.out.println("6.read test");
         userInput = interfaceScan.nextInt();
 
         switch (userInput)
         {
             case 1:
-                if(Main.currentTeams.size() == 16) {
-                    data.randomMatchUps(Main.teams, Main.matches);
-                }
-                else if(Main.currentTeams.size() == 8) {
-                    data.randomMatchUps(Main.currentTeams, Main.matches);
-                }
-                else if(Main.currentTeams.size() == 4) {
-                    data.randomMatchUps(Main.currentTeams, Main.matches);
-                }
-                else if(Main.currentTeams.size() == 2) {
-                    data.randomMatchUps(Main.currentTeams, Main.matches);
-                }
+                data.randomMatchUps(Main.currentTeams, Main.matches);
                 mainInterface();
                 break;
             case 2:
-                if(Main.currentTeams.size() == 16) {
-                    System.out.println("Jeg har lavet hold i matches");
-                    data.registerMatches(Main.currentmatches);
-                }
-                else if(Main.currentTeams.size() == 8) {
-                    System.out.println("Jeg har lavet hold i quaterfinals");
-                    data.registerMatches(Main.currentmatches);
-                }
-                else if(Main.currentTeams.size() == 4) {
-                    data.registerMatches(Main.currentmatches);
-                }
-                else if(Main.currentTeams.size() == 2){
-                    data.registerMatches(Main.currentmatches);
-                }
+                data.registerMatches(Main.currentmatches);
                 mainInterface();
                 break;
             case 3:
+
+            case 4:
+                data.showWinnerOfMatch();
+            case 5:
                 mainInterface();
                 break;
-            case 4:
+            case 6:
                 Main.matches = Main.io.loadMatches("src/match.txt");
                 System.out.println(Main.matches);
                 break;
@@ -132,16 +113,17 @@ public class UI
     public void tournamentMenu()
     {
         System.out.println("\nTOURNAMENT MENU - TOURNAMENT " + Main.tournaments.get(Main.tourChoose).getTournamentName().toUpperCase());
-        System.out.println("1.Tournament placements"); //todo lav imorgen
-        System.out.println("2.Tournament match schedule"); //todo VIKER IKKE
-        System.out.println("3.Tournament simulation"); //todo lav måske imorgen
-        System.out.println("4.Back to menu");
+        System.out.println("1.Tournament placements");
+        System.out.println("2.Tournament match schedule");
+        System.out.println("3.Tournament simulation");
+        System.out.println("4.Tournament winners");
+        System.out.println("5.Back to menu");
         userInput = interfaceScan.nextInt();
 
         switch (userInput)
         {
             case 1:
-                tournamentPlacement();
+                System.out.println("This feature is not functioning ATM.");
                 mainInterface();
                 break;
             case 2:
@@ -153,6 +135,8 @@ public class UI
                 mainInterface();
                 break;
             case 4:
+                data.Winners();
+            case 5:
                 mainInterface();
                 break;
             default:
@@ -164,21 +148,13 @@ public class UI
 
 
 
-
-    public void tournamentPlacement()
+    public void showNextMatch()
     {
-        System.out.println("Stats for Matches" + "\n");
-
-        System.out.println("Gruppespil");
-        System.out.println(Main.matches + "\n");
-        System.out.println("QuarterFinals");
-        System.out.println(Main.quarterFinals + "\n");
-        System.out.println("SemiFinals");
-        System.out.println(Main.semifinals + "\n");
-        System.out.println("Final");
-        System.out.println(Main.Finals + "\n");
 
     }
+
+
+
 
 }
 
