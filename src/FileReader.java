@@ -19,6 +19,10 @@ public class FileReader implements IO
 
     }
 
+    public void savePlayers(){
+
+    }
+
     @Override
     public void loadResults() {
 

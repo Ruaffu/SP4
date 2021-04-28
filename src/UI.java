@@ -30,6 +30,8 @@ public class UI
 
             case 4:
                 Main.io.saveTournament();
+                Main.io.saveTeams();
+                Main.io.savePlayers();
                 System.exit(0);
             default:
                 System.out.println("not a valid option");

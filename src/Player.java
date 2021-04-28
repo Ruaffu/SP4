@@ -15,12 +15,18 @@ public class Player {
         return teamID;
     }
 
+
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
     }
 
     @Override

@@ -15,9 +15,8 @@ public class Team {
     ArrayList<Player> players = new ArrayList<>();
     UI ui;
 
-    public Team(int tournamentID,int id,String teamName,boolean knockedOut){
+    public Team(int tournamentID,String teamName,boolean knockedOut){
         this.tournamentID = tournamentID;
-        this.id = id;
         this.teamName = teamName;
         this.knockedOut = knockedOut;
 

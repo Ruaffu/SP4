@@ -23,7 +23,7 @@ public class DBConnector implements IO{
 
         //Insert/upsert
         String sql = "INSERT INTO Teams(id,tournamentID,name,knockOut) "
-                + "VALUES(?,?,?,?)  ON DUPLICATE KEY UPDATE goals=?, points=?";
+                + "VALUES(?,?,?,?)";
 
         try{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -36,16 +36,10 @@ public class DBConnector implements IO{
 
             for(int i = 0; i <  Main.teams.size();i++){
 
-                pstmt.setInt(1,Main.getTournamentByID(i).getId());
-                pstmt.setString(2,Main.getMatchByID(i).getMatch());
-                pstmt.setInt(3,Main.getTeamByID(i).getTeamName());
-                pstmt.setInt(4,Main.getGoals(i).getTeamGoals());
-                pstmt.setInt(5,Main.getPoints(i).getPoints());
-
-                // Disse paramtre bruges ved UPDATES
-                pstmt.setInt(6,Main.getGoals(i).getTeamGoals());
-                pstmt.setInt(7,Main.getPoints(i).getPoints());
-
+                pstmt.setInt(1, Main.teams.get(i).getid());
+                pstmt.setInt(2, Main.teams.get(i).getTournamentID());
+                pstmt.setString(3, Main.teams.get(i).getTeamName());
+                pstmt.setBoolean(4, Main.teams.get(i).isKnockedOut());
 
                 pstmt.addBatch();
 
@@ -121,14 +115,14 @@ public class DBConnector implements IO{
     }
 
     @Override
-    public void saveTournament()
+    public void savePlayers()
     {
         ResultSet rs = null;
         Connection conn = null;
         //Statement stmt = null;
 
-        String sql = "INSERT INTO Tournaments (name)"
-                + " VALUES(?) ON DUPLICATE KEY UPDATE name=?";
+        String sql = "INSERT INTO Players(teamID,name)"
+                + "VALUES(?,?)";
 
         try
         {
@@ -140,11 +134,9 @@ public class DBConnector implements IO{
             System.out.println("Creating statement...");
             //  stmt = conn.createStatement();
 
-            for (int i = 0; i < Main.tournaments.size(); i++)
+            for (int i = 0; i < Main.players.size(); i++)
             {
-                pstmt.setString(1, Main.tournaments.get(i).getTournamentName());
-                //disse parametre bruges ved UPDATES
-                pstmt.setString(2,Main.tournaments.get(i).getTournamentName());
+                pstmt.setInt(1, Main.players.get(i).getTeamID());
 
                 pstmt.addBatch();
             }
@@ -161,7 +153,56 @@ public class DBConnector implements IO{
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("statement Done");
+        System.out.println("Player statement Done");
+    }
+
+    @Override
+    public void saveTournament()
+    {
+        ResultSet rs = null;
+        Connection conn = null;
+        Statement stmt = null;
+
+        String sql = "INSERT INTO Tournaments(name) "
+                + " VALUES(?)";
+
+        String sql2 = "SELECT * FROM Teams";
+
+
+        try
+        {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+
+
+            //STEP 2: Execute a query
+            System.out.println("Creating statement...");
+            //  stmt = conn.createStatement();
+
+            for (int i = 0; i < Main.tournaments.size(); i++)
+            {
+
+
+                    pstmt.setString(1, Main.tournaments.get(i).getTournamentName());
+
+                    pstmt.addBatch();
+
+
+            }
+            pstmt.executeBatch();
+
+        } catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }finally {
+            try{
+                if(rs != null) rs.close();
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("Tournament statement Done");
 
     }
     public ArrayList<Player> loadPlayers()
@@ -256,7 +297,8 @@ public class DBConnector implements IO{
                 System.out.print("ID: " + ID);
                 System.out.print(" | TeamName: " + name);
                 System.out.println(" | TeamknockOut: " + knockOut);
-                Team team = new Team(tournamentID,ID,name,knockOut);
+                Team team = new Team(tournamentID,name,knockOut);
+                team.setid(ID);
                 teamList.add(team);
 
             }

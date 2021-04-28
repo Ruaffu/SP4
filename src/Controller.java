@@ -10,30 +10,52 @@ IO io;
 
     public void registerTeam()
     {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Write your team name");
-        String teamName = scan.nextLine();
-        System.out.println("Write name of first player");
-        String player1 = scan.nextLine();
-        System.out.println("Write name of second player");
-        String player2 = scan.nextLine();
+        registerTeamAndPlayers(Main.players);
 
         try
         {
-            Team team = new Team(teamName);
-            Main.teams.add(team);
             Writer output;
             output = new BufferedWriter(new FileWriter("src/Teams.txt",true));
             output.append("\n");
-            output.append(teamName + ":player 1 - " + player1 +":player 2 - " + player2);
+
             output.close();
         }
         catch (IOException e)
         {
             System.out.println("Something went wrong");
         }
-        System.out.println("Welcome to the tournament " + teamName + " Your team has now been registered");
+    }
 
+    public void registerTeamAndPlayers (ArrayList<Player> registerPlayers){
+        //Add team
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Write your team name");
+        String teamName = scan.nextLine();
+
+        Team team = new Team(Main.tourChoose+1,teamName,false);
+        Main.players.get(2).setTeamID(team.getid());
+        Main.teams.add(team);
+
+        //Add players
+        System.out.println("Register players");
+        final int maxPlayers = 6;
+        ArrayList<Player> players = new ArrayList<>();
+        Scanner scan2 = new Scanner(System.in);
+        int count = 0;
+        while(players.size() < maxPlayers){
+            System.out.println("Write name of player");
+            String playerName = scan2.nextLine();
+
+            if(playerName.toLowerCase().equals("q")){
+                break;
+            }
+
+            Player player = new Player(playerName);
+            player.setTeamID(team.getid());
+            players.add(player);
+            count++;
+        }
+        System.out.println("Welcome to the tournament " + teamName + " Your team has now been registered");
     }
 
     public void deleteTeam()
@@ -58,6 +80,7 @@ IO io;
             }
         }
     }
+
 
     public void randomMatchUps(ArrayList<Team> randomTeams, ArrayList<Match> randomMatch) // creates random match-ups of the teams
     {
