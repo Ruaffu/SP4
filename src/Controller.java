@@ -30,10 +30,10 @@ IO io;
         //Add team
         Scanner scan = new Scanner(System.in);
         System.out.println("\n" +
-                " +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+\n" +
-                " |W|e|l|c|o|m|e| |t|o| |t|e|a|m| |r|e|g|i|s|t|r|a|t|i|o|n|\n" +
-                " +-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+\n");
-        System.out.println("\n Please write your teams name");
+                "_ _ _ ____ _    ____ ____ _  _ ____    ___ ____    ___ ____ ____ _  _    ____ ____ ____ _ ____ ___ ____ ____ ___ _ ____ _  _ \n" +
+                "| | | |___ |    |    |  | |\\/| |___     |  |  |     |  |___ |__| |\\/|    |__/ |___ | __ | [__   |  |__/ |__|  |  | |  | |\\ | \n" +
+                "|_|_| |___ |___ |___ |__| |  | |___     |  |__|     |  |___ |  | |  |    |  \\ |___ |__] | ___]  |  |  \\ |  |  |  | |__| | \\| \n");
+        System.out.println("Please write your teams name");
         String teamName = scan.nextLine();
 
         Team team = new Team(Main.tourChoose+1,teamName,false);
@@ -41,10 +41,12 @@ IO io;
         Main.teams.add(team);
 
         //Add players
-        System.out.println("+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+\n" +
-                " |P|l|a|y|e|r| |r|e|g|i|s|t|r|a|t|i|o|n|\n" +
-                " +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+");
-        System.out.println("\n Register a max of 6 players per team (press q to quit)");
+        System.out.println(
+                "\n" +
+                        "___  _    ____ _   _ ____ ____    ____ ____ ____ _ ____ ___ ____ ____ ___ _ ____ _  _ \n" +
+                        "|__] |    |__|  \\_/  |___ |__/    |__/ |___ | __ | [__   |  |__/ |__|  |  | |  | |\\ | \n" +
+                        "|    |___ |  |   |   |___ |  \\    |  \\ |___ |__] | ___]  |  |  \\ |  |  |  | |__| | \\| \n" );
+        System.out.println("Register a max of 6 players per team (press q to quit)");
         final int maxPlayers = 6;
         ArrayList<Player> players = new ArrayList<>();
         Scanner scan2 = new Scanner(System.in);
@@ -73,7 +75,7 @@ IO io;
         //todo make it remove from txt file too
         Scanner sc = new Scanner(System.in);
         System.out.println(Main.teams);
-        System.out.println("Type name of team to remove");
+        System.out.println("Type name of team to remove: ");
         String teamName = sc.nextLine();
 
         Iterator i = Main.teams.iterator();

@@ -6,7 +6,7 @@ public class DBConnector implements IO{
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/TournamentManager2";
+    static final String DB_URL = "jdbc:mysql://localhost/TournamentManager";
 
     //  Database credentials
     static final String USER = "root";
