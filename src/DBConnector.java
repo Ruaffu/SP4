@@ -85,7 +85,7 @@ public class DBConnector implements IO{
 //
 //            for(int i = 0; i <  Main.matches.size();i++){
 //
-//                pstmt.setInt(1,Main.getTournamentByID(i).getId());
+//                pstmt.setInt(1,Main.tournaments.get(i).getId());
 //                pstmt.setString(2,Main.getMatchByID(i).getMatch());
 //                pstmt.setInt(3,Main.getTeamByID(i).getTeamName());
 //                pstmt.setInt(4,Main.getGoals(i).getTeamGoals());
@@ -114,7 +114,53 @@ public class DBConnector implements IO{
     }
 
     @Override
-    public void saveResults() {
+    public void saveResults()
+    {
+
+    }
+
+    @Override
+    public void saveTournament()
+    {
+        ResultSet rs = null;
+        Connection conn = null;
+        //Statement stmt = null;
+
+        String sql = "INSERT INTO Tournaments (name)"
+                + " VALUES(?) ON DUPLICATE KEY UPDATE name=?";
+
+        try
+        {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+
+            //STEP 2: Execute a query
+            System.out.println("Creating statement...");
+            //  stmt = conn.createStatement();
+
+            for (int i = 0; i < Main.tournaments.size(); i++)
+            {
+                pstmt.setString(1, Main.tournaments.get(i).getTournamentName());
+                //disse parametre bruges ved UPDATES
+                pstmt.setString(2,Main.tournaments.get(i).getTournamentName());
+
+                pstmt.addBatch();
+            }
+
+            pstmt.executeBatch();
+
+        } catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }finally {
+            try{
+                if(rs != null) rs.close();
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("statement Done");
 
     }
 

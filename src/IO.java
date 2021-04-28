@@ -7,6 +7,7 @@ public interface IO
     public void saveResults();
     public void saveMatches();
     public void savecurrentTeam();
+    public void saveTournament();
 
     public ArrayList<Tournament> loadTournaments();
     public ArrayList<Tournament> loadTeamMatches();

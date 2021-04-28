@@ -11,6 +11,10 @@ public class Tournament {
     int goal;
     UI ui;
 
+    public Tournament(String tournamentName)
+    {
+        this.tournamentName = tournamentName;
+    }
 
     public Tournament(int id ,String tournamentName){
         this.id = id;
@@ -41,18 +45,19 @@ public class Tournament {
 
         data.message();
 
-        if(Main.currentTeams.size() == 0) {
-            Main.currentTeams = Main.teams;
-            data.teamExecute(Main.matches);
+        if(Main.currentTeams.size() == 16) {
+            System.out.println("current teams 16");
+            data.teamExecute(Main.currentmatches);
         }
         else if(Main.currentTeams.size() == 8) {
-            data.teamExecute(Main.quarterFinals);
+            System.out.println("current teams 8");
+            data.teamExecute(Main.currentmatches);
         }
         else if(Main.currentTeams.size() == 4) {
-            data.teamExecute(Main.semifinals);
+            data.teamExecute(Main.currentmatches);
         }
         else if(Main.currentTeams.size() == 2) {
-            data.teamExecute(Main.Finals);
+            data.teamExecute(Main.currentmatches);
         }
 
     }
@@ -148,7 +153,7 @@ public class Tournament {
 
     @Override
     public String toString() {
-        return tournamentName + teamID;
+        return tournamentName ;
     }
 
 }

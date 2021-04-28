@@ -12,7 +12,11 @@ public class FileReader implements IO
     }
 
     public ArrayList<Tournament> loadTeamMatches(){
-      return null;
+        return null;
+    }
+
+    public void saveTournament(){
+
     }
 
     @Override
@@ -66,7 +70,7 @@ public class FileReader implements IO
 
                 int team1Goal = Integer.parseInt(colonSeperatedValues[2]);
                 int team2Goal = Integer.parseInt(colonSeperatedValues[3]);
-                matchList.add(new Match(team1,team2,team1Goal,team2Goal));
+                //matchList.add(new Match(team1,team2,team1Goal,team2Goal));
             }
         }
 

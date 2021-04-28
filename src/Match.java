@@ -14,12 +14,13 @@ public class Match {
     int team2Goals;
     UI ui;
 
-    public Match(Team team1, Team team2, int team1Goals, int team2Goals)
+    public Match(Team team1, Team team2, int team1Goals, int team2Goals, boolean active)
     {
         this.team1 = team1;
         this.team2 = team2;
         this.team1Goals = team1Goals;
         this.team2Goals = team2Goals;
+        this.active = active;
     }
 
     public Match(int tourId, int id, String matchType, int date, int time, boolean active)

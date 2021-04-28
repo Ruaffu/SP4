@@ -29,6 +29,7 @@ public class UI
                 break;
 
             case 4:
+                Main.io.saveTournament();
                 System.exit(0);
             default:
                 System.out.println("not a valid option");
@@ -81,34 +82,34 @@ public class UI
         switch (userInput)
         {
             case 1:
-                if(Main.currentTeams.size() == 0) {
+                if(Main.currentTeams.size() == 16) {
                     data.randomMatchUps(Main.teams, Main.matches);
                 }
                 else if(Main.currentTeams.size() == 8) {
-                    data.randomMatchUps(Main.currentTeams, Main.quarterFinals);
+                    data.randomMatchUps(Main.currentTeams, Main.matches);
                 }
                 else if(Main.currentTeams.size() == 4) {
-                    data.randomMatchUps(Main.currentTeams, Main.semifinals);
+                    data.randomMatchUps(Main.currentTeams, Main.matches);
                 }
                 else if(Main.currentTeams.size() == 2) {
-                    data.randomMatchUps(Main.currentTeams, Main.Finals);
+                    data.randomMatchUps(Main.currentTeams, Main.matches);
                 }
                 mainInterface();
                 break;
             case 2:
                 if(Main.currentTeams.size() == 16) {
                     System.out.println("Jeg har lavet hold i matches");
-                    data.registerMatches(Main.matches);
+                    data.registerMatches(Main.currentmatches);
                 }
                 else if(Main.currentTeams.size() == 8) {
                     System.out.println("Jeg har lavet hold i quaterfinals");
-                    data.registerMatches(Main.quarterFinals);
+                    data.registerMatches(Main.currentmatches);
                 }
                 else if(Main.currentTeams.size() == 4) {
-                    data.registerMatches(Main.semifinals);
+                    data.registerMatches(Main.currentmatches);
                 }
                 else if(Main.currentTeams.size() == 2){
-                    data.registerMatches(Main.Finals);
+                    data.registerMatches(Main.currentmatches);
                 }
                 mainInterface();
                 break;

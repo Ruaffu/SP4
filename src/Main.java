@@ -1,7 +1,6 @@
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.ObjectInputStream;
@@ -76,6 +75,16 @@ public class Main {
         System.out.println("\nTOURNAMENTSCHEDULE");
         System.out.println(tournamentSchedule.get(1).getTeamID());
 
+                //set Teams in the right Matches
+                int x = 0;
+                int g = 0;
+                while(g < tournamentSchedule.size()/2)
+                {
+                    matches.get(g).setTeam1(teams.get(x));
+                    matches.get(g).setTeam2(teams.get(x + 1));
+                    x +=2;
+                    g++;
+                }
 
         for(int u = 0; u < tournamentSchedule.size(); u++)
         {
@@ -89,7 +98,6 @@ public class Main {
             }
         }
 
-
         Scanner tourInput = new Scanner(System.in);
         System.out.println("\nSaved Tournaments: \n");
         int i = 1;
@@ -99,7 +107,7 @@ public class Main {
             i++;
         }
         System.out.println("Create new Tournament:\n");
-        System.out.println(" "+(i+1) + ".Create new tournament\n");
+        System.out.println(" "+(i) + ".Create new tournament\n");
         int input = tourInput.nextInt();
         io = getIo();
 
@@ -139,7 +147,8 @@ public class Main {
         }
         else if(input == i+1)
         {
-            //Create new tournament
+            Controller data = new Controller();
+            data.createTournament();
         }
         else
         {
@@ -151,15 +160,6 @@ public class Main {
             if (teams.get(p).isKnockedOut() == false)
             {
                 Main.currentTeams.add(teams.get(p));
-            }
-        }
-
-        //add all matches that is active in the tournament
-        for(int j = 0; j < matches.size(); j++)
-        {
-            if (matches.get(j).isActive() == true)
-            {
-                Main.currentmatches.add(matches.get(j));
             }
         }
 
@@ -186,11 +186,10 @@ public class Main {
             teamPath = "src/Teams.txt";
             matchPath = "src/match.txt";
             currentTeamPath = "src/CurrentTeams.txt";
-
+            return new FileReader();
         }
         return null;
     }
-
     public static void continueTournament() {
 
             if(src == Datasource.DATABASE) {
@@ -224,6 +223,17 @@ public class Main {
             gameData.append(matchData);
         }
         return gameData.toString();
+    }
+
+    public static void addToCurrentTeams()
+    {
+        for(int j = 0; j < Main.matches.size(); j++)
+        {
+            if (Main.matches.get(j).isActive() == true)
+            {
+                Main.currentmatches.add(Main.matches.get(j));
+            }
+        }
     }
 
 

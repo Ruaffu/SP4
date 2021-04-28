@@ -70,9 +70,9 @@ IO io;
             Team team2;
             team1 = teamsList.get(i);
             team2 = teamsList.get(i+1);
-            Match match = new Match(team1,team2, 0, 0);
+            Match match = new Match(team1,team2, 0, 0,true);
             randomMatch.add(match);
-            io.saveMatches();
+//            io.saveMatches();
             System.out.println("A match between " + team1 + " and " + team2 + " has now been created");
         }
 
@@ -91,45 +91,51 @@ IO io;
 
     public void teamExecute(ArrayList<Match> matches) //MANGLER
     {
+        System.out.println(Main.currentTeams.size());
         int i = 0;
         while(matches.size() > i)
         {
             Match match = matches.get(i);
+                System.out.println("match is active");
+                //set teams that lose to have boolean true knockOut
+                if (match.getTeam1Goals() > match.getTeam2Goals()) {
+                    match.getTeam2().setKnockedOut(true);
+                } else if (match.getTeam1Goals() < match.getTeam2Goals()) {
+                    match.getTeam1().setKnockedOut(true);
 
-            //set teams that lose to have boolean true knockOut
-            if (match.getTeam1Goals() > match.getTeam2Goals()) {
-                match.getTeam2().setKnockedOut(true);
-            } else if (match.getTeam1Goals() < match.getTeam2Goals()) {
-                match.getTeam1().setKnockedOut(true);
+                }
 
-            }
-
-            //Removes teams that lose a knockOut game
-            if (match.getTeam1().isKnockedOut() == true) {
-                Main.currentTeams.remove(match.getTeam1());
-            } else if (match.getTeam2().isKnockedOut() == true) {
-                Main.currentTeams.remove(match.getTeam2());
-            }
-            i++;
-
+                //Removes teams that lose a knockOut game
+                if (match.getTeam1().isKnockedOut() == true) {
+                    Main.currentTeams.remove(match.getTeam1());
+                } else if (match.getTeam2().isKnockedOut() == true) {
+                    Main.currentTeams.remove(match.getTeam2());
+                }
+                //set the matches that just got simulasted to false in active
+                match.setActive(false);
+                i++;
         }
+
+         Main.currentmatches.removeAll(Main.currentmatches);
+
         if (Main.currentTeams.size() > 1) {
             System.out.println("Qualified teams: " + Main.currentTeams + "\n");
-            io.savecurrentTeam();
+
 
         } else if (Main.currentTeams.size() <= 1) {
             System.out.println("\n" + "The winner of the tournament is " + Main.currentTeams + "\n");
         }
 
+
     }
     public void message(){
-        if (Main.teams.size() >= 16){
+        if (Main.currentTeams.size() >= 16){
             System.out.println("GruppeSpil");
-        }else if(Main.teams.size() == 8){
+        }else if(Main.currentTeams.size() == 8){
             System.out.println("Quarterfinals");
-        }else if(Main.teams.size() == 4){
+        }else if(Main.currentTeams.size() == 4){
             System.out.println("Semifinals");
-        }else if(Main.teams.size() == 2){
+        }else if(Main.currentTeams.size() == 2){
             System.out.println("Finals");
         }
     }
@@ -138,6 +144,8 @@ IO io;
 
     public void registerMatches(ArrayList<Match> matchList)
     {
+        Main.addToCurrentTeams();
+
         while(true) {
             Scanner scan = new Scanner(System.in);
             System.out.println("Match goal register");
@@ -187,4 +195,14 @@ IO io;
     }
 
 
+    public void createTournament()
+    {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Type tournament name");
+        System.out.println("\nUserInput: ");
+        String tournamentName = scan.nextLine();
+        Tournament tournament = new Tournament(tournamentName);
+        Main.tournaments.add(tournament);
+        System.out.println("Tournament " + tournamentName + " has now been created");
+    }
 }
